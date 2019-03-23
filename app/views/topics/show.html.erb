@@ -1,0 +1,40 @@
+<div class="topic-index-wrapper">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="topic-index-single">
+            <h2 class="topic-author">
+              <%= @topic.user.name %>
+            </h2>
+            <%= image_tag @topic.image.url %>
+            <% if !@topic.favorite_users.include?(current_user) %>
+              <%= link_to favorites_path(topic_id: @topic.id), method: :post do %>
+                <%= image_tag 'icons/heart-black.png', class: 'topic-index-icon' %>
+              <% end %>
+            <% end %>
+            <%= image_tag 'icons/comment.png', class: 'topic-index-icon' %>
+
+	         <p class="topic-comment">
+             <p class="topic-text">
+               <%= @topic.description %>
+               <% @topic.comments.each do |comment| %>
+                 <p>
+                   <%= comment.content %>
+                 </p>
+               <% end %>
+             </p>
+           </p>
+
+           <%= form_for :comments, url: comments_path do |f| %>
+             <div class="form-group">
+                <%= f.label :"コメント投稿", class: "text-black" %>
+                <input type="text" name="content" id="content" value="" class="form-control"/>
+             </div>
+             <input type="hidden" name="topic_id" id="topic_id" value="<%= @topic.id.to_s.html_safe =%>" />
+             <%= f.submit "投稿", class: "btn-block btn-black" %>
+           <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
