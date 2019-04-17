@@ -1,11 +1,6 @@
 class User < ApplicationRecord
   ##validates :name, presence: true
-  ##validates :name, presence: true ,length: { maximum: 15 }
-  validates :name, presence: true ,length: { maximum: 15 },
-	  format: {
-	  	with: /\A[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+\z/,
-		message: "全角カタカナのみで入力して下さい"
-  	}
+  validates :name, presence: true ,length: { maximum: 15 }
   ##validates :email, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
